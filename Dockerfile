@@ -1,14 +1,28 @@
-# Use official Java 17 image
-FROM eclipse-temurin:17-jdk
-
-# Set working directory
+# ---------- BUILD STAGE ----------
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
 
-# Copy Maven build output
-COPY target/issueflow-0.0.1-SNAPSHOT.jar app.jar
+# Copy Maven files
+COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw mvnw
+COPY mvnw.cmd mvnw.cmd
 
-# Expose port
+# Download dependencies
+RUN ./mvnw.cmd dependency:go-offline
+
+# Copy source code
+COPY src src
+
+# Build the application
+RUN ./mvnw.cmd clean package -DskipTests
+
+# ---------- RUNTIME STAGE ----------
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+
+# Copy jar from build stage
+COPY --from=build /app/target/issueflow-0.0.1-SNAPSHOT.jar app.jar
+
 EXPOSE 8080
-
-# Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
