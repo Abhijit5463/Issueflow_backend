@@ -2,20 +2,22 @@
 FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
 
-# Copy Maven files
+# Copy Maven wrapper and config
 COPY pom.xml .
 COPY .mvn .mvn
 COPY mvnw mvnw
-COPY mvnw.cmd mvnw.cmd
+
+# Make mvnw executable (IMPORTANT)
+RUN chmod +x mvnw
 
 # Download dependencies
-RUN ./mvnw.cmd dependency:go-offline
+RUN ./mvnw dependency:go-offline
 
 # Copy source code
 COPY src src
 
 # Build the application
-RUN ./mvnw.cmd clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 # ---------- RUNTIME STAGE ----------
 FROM eclipse-temurin:17-jdk
