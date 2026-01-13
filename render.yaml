@@ -31,17 +31,17 @@ services:
         generateValue: true
       - key: ALLOWED_ORIGIN
         fromService:
-          type: static
+          type: web
           name: issueflow-frontend
           property: url
 
   # Frontend: Static Site
-  - type: static
+  - type: web
     name: issueflow-frontend
-    runtime: node
+    runtime: static
     plan: free
     buildCommand: npm install && npm run build
-    publishDir: dist
+    staticPublishPath: dist
     rootDirectory: frontend
     envVars:
       - key: VITE_API_BASE_URL
