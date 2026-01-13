@@ -1,6 +1,6 @@
-Issueflow – Issue Tracking Backend API
+Issueflow – Issue Tracking System
 A production-ready Issue Tracking REST API built using Java, Spring Boot, JPA, PostgreSQL, and Docker, deployed on Render with live Swagger documentation.
-This project demonstrates real-world backend development, including API design, validation, exception handling, database integration, cloud deployment, and troubleshooting production issues.
+This project is a production-ready Issue Tracking system built using Java (Spring Boot) and React (Vite). It uses PostgreSQL for data persistence and is ready for cloud deployment on Render.
 
 Features
 Create, update, view, and delete issues (tickets)

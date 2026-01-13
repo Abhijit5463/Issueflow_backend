@@ -1,7 +1,5 @@
 package com.example.issueflow.model;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,8 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-
-
 
 @Entity
 @Getter
@@ -34,11 +30,34 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @NotNull(message = "Priority is requried")
+    @NotNull(message = "Priority is required")
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    private String reporter;
+
+    private String assignee;
+
+    private String resolution;
+
+    private String timeWorked;
+
+    private String referencedKb;
+
+    private String elapsedTime;
+
+    private Boolean recurringIssue;
+
+    @ElementCollection
+    private java.util.List<String> attachments = new java.util.ArrayList<>();
+
+    private LocalDateTime closedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
 }
