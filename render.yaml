@@ -2,10 +2,8 @@ services:
   # Backend: Web Service (Java)
   - type: web
     name: issueflow-api
-    runtime: java
+    runtime: docker
     plan: free
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/issueflow-0.0.1-SNAPSHOT.jar
     envVars:
       - key: DB_HOST
         fromDatabase:
@@ -30,10 +28,7 @@ services:
       - key: APP_JWTSECRET
         generateValue: true
       - key: ALLOWED_ORIGIN
-        fromService:
-          type: web
-          name: issueflow-frontend
-          property: url
+        value: https://issueflow-frontend.onrender.com
 
   # Frontend: Static Site
   - type: web
@@ -45,10 +40,7 @@ services:
     rootDir: frontend
     envVars:
       - key: VITE_API_BASE_URL
-        fromService:
-          type: web
-          name: issueflow-api
-          property: url
+        value: https://issueflow-api.onrender.com
 
 databases:
   - name: issueflow-db
