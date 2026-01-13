@@ -33,15 +33,6 @@ export default function TicketDetail() {
 
     const fetchTicket = async () => {
         try {
-            // Since backend doesn't have "getById" exposed in controller explicitly? 
-            // Wait, checking controller... 
-            // Controller has updateTicket, deleteTicket, createTicket, getAllTickets.
-            // MISSING: GetTicketById.
-            // I need to add that to backend or I can't implement this page properly without fetching all and filtering (bad practice) or adding endpoint.
-            // I will add the endpoint in the next step.
-            // For now code assumes it exists.
-            // I will add the endpoint in the next step.
-            // For now code assumes it exists.
             const response = await api.get(`/tickets/${id}`);
             setTicket({ ...response.data, attachments: response.data.attachments || [] });
             setFormData({
@@ -198,7 +189,7 @@ export default function TicketDetail() {
                                 {ticket.attachments.map((file, index) => (
                                     <a
                                         key={index}
-                                        href={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api/tickets/uploads/${file}`}
+                                        href={`/api/tickets/uploads/${file}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         style={{

@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
 
     const api = useMemo(() => {
         const instance = axios.create({
-            baseURL: `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api`
+            baseURL: `${import.meta.env.VITE_API_BASE_URL || ''}/api`
         });
 
         instance.interceptors.request.use(
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
                         const refreshToken = localStorage.getItem('refreshToken');
                         if (refreshToken) {
                             try {
-                                const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api/auth/refresh`, {
+                                const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL || ''}/api/auth/refresh`, {
                                     refreshToken: refreshToken
                                 });
                                 const { accessToken } = res.data;
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             console.log("Attempting login for:", email);
-            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api/auth/login`, { email, password });
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL || ''}/api/auth/login`, { email, password });
             console.log("Login response received:", response.data);
             const { token, refreshToken, ...userData } = response.data;
 
@@ -100,7 +100,7 @@ export const AuthProvider = ({ children }) => {
 
     const signup = async (name, email, password) => {
         try {
-            await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/api/auth/signup`, { name, email, password });
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL || ''}/api/auth/signup`, { name, email, password });
             return { success: true };
         } catch (error) {
             return { success: false, message: error.response?.data?.message || 'Signup failed' };

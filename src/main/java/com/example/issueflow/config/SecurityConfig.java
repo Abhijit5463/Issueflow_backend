@@ -63,7 +63,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/tickets/uploads/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/teams").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/teams").authenticated()
-                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/error", "/index.html", "/assets/**", "/*.svg", "/*.png", "/*.ico",
+                                "/vite.svg")
+                        .permitAll()
+                        .requestMatchers("/", "/login", "/signup", "/tickets/**", "/teams/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated());
 
@@ -77,7 +80,7 @@ public class SecurityConfig {
     @Bean
     public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
         org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
-        configuration.setAllowedOrigins(java.util.List.of(allowedOrigin));
+        configuration.setAllowedOrigins(java.util.List.of(allowedOrigin, "https://issueflow.onrender.com"));
         configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         configuration.setAllowedHeaders(java.util.List.of("*"));
         configuration.setAllowCredentials(true);
