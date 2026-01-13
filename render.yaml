@@ -31,8 +31,9 @@ services:
         value: https://issueflow-frontend.onrender.com
 
   # Frontend: Static Site
-  - type: static_site
+  - type: web
     name: issueflow-frontend
+    runtime: static
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     rootDir: frontend
