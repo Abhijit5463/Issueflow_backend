@@ -5,6 +5,9 @@ WORKDIR /app
 # Copy everything for the build
 COPY . .
 
+# Fix permissions for the Maven wrapper
+RUN chmod +x mvnw
+
 # Build the application (the pom.xml now handles npm install and building the React app)
 RUN ./mvnw clean package -DskipTests
 
