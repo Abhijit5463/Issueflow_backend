@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
 
     const api = useMemo(() => {
         const instance = axios.create({
-            baseURL: `${import.meta.env.VITE_API_BASE_URL || ''}`
+            baseURL: `${import.meta.env.VITE_API_BASE_URL || ''}/api`
         });
 
         instance.interceptors.request.use(

@@ -19,14 +19,14 @@ export default function Teams() {
     const fetchData = async () => {
         try {
             const [teamsRes, invitesRes] = await Promise.all([
-                api.get('/teams/my'),
-                api.get('/invitations')
+                api.get('teams/my'),
+                api.get('invitations')
             ]);
             setMyTeams(teamsRes.data);
             setInvitations(invitesRes.data.filter(inv => inv.status === 'PENDING'));
 
             // Fetch members for each team
-            const membersPromises = teamsRes.data.map(team => api.get(`/teams/${team.id}/members`));
+            const membersPromises = teamsRes.data.map(team => api.get(`teams/${team.id}/members`));
             const membersResults = await Promise.all(membersPromises);
             const membersMap = {};
             teamsRes.data.forEach((team, index) => {
@@ -45,7 +45,7 @@ export default function Teams() {
     const handleCreateTeam = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/teams', { name: newTeamName });
+            await api.post('teams', { name: newTeamName });
             setNewTeamName('');
             fetchData();
         } catch (err) {
@@ -57,7 +57,7 @@ export default function Teams() {
 
     const handleInvite = async (teamId) => {
         try {
-            await api.post(`/teams/${teamId}/invite`, { email: invitationEmail[teamId] });
+            await api.post(`teams/${teamId}/invite`, { email: invitationEmail[teamId] });
             setInvitationEmail({ ...invitationEmail, [teamId]: '' });
             alert('Invitation sent!');
         } catch (err) {
@@ -68,7 +68,7 @@ export default function Teams() {
     const handleRemoveMember = async (teamId, userId) => {
         if (!window.confirm('Are you sure you want to remove this member?')) return;
         try {
-            await api.delete(`/teams/${teamId}/members/${userId}`);
+            await api.delete(`teams/${teamId}/members/${userId}`);
             fetchData();
         } catch (err) {
             setError('Failed to remove member');
@@ -77,7 +77,7 @@ export default function Teams() {
 
     const handleRespondInvitation = async (invitationId, status) => {
         try {
-            await api.post(`/invitations/${invitationId}/respond`, { status });
+            await api.post(`invitations/${invitationId}/respond`, { status });
             fetchData();
         } catch (err) {
             setError('Failed to respond to invitation');

@@ -33,7 +33,7 @@ export default function TicketDetail() {
 
     const fetchTicket = async () => {
         try {
-            const response = await api.get(`/tickets/${id}`);
+            const response = await api.get(`tickets/${id}`);
             setTicket({ ...response.data, attachments: response.data.attachments || [] });
             setFormData({
                 title: response.data.title,
@@ -81,7 +81,7 @@ export default function TicketDetail() {
                 dataToSubmit.status = 'CLOSED';
             }
 
-            await api.put(`/tickets/${id}`, dataToSubmit);
+            await api.put(`tickets/${id}`, dataToSubmit);
             alert("Ticket updated");
             fetchTicket();
         } catch (error) {
@@ -99,7 +99,7 @@ export default function TicketDetail() {
         formData.append('file', file);
 
         try {
-            await api.post(`/tickets/${id}/attachments`, formData, {
+            await api.post(`tickets/${id}/attachments`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             alert("File attached successfully");
@@ -150,7 +150,7 @@ export default function TicketDetail() {
                             <button onClick={async () => {
                                 try {
                                     const updatedData = { ...formData, status: 'IN_PROGRESS' };
-                                    await api.put(`/tickets/${id}`, updatedData);
+                                    await api.put(`tickets/${id}`, updatedData);
                                     fetchTicket();
                                 } catch (e) { alert(e.message); }
                             }} className="btn btn-secondary">Reopen Ticket</button>

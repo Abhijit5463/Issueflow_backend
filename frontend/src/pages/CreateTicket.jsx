@@ -20,7 +20,7 @@ export default function CreateTicket() {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const res = await api.get('/teams');
+                const res = await api.get('teams');
                 setTeams(res.data);
             } catch (err) {
                 console.error("Failed to fetch teams", err);
@@ -36,7 +36,7 @@ export default function CreateTicket() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/tickets', formData);
+            await api.post('tickets', formData);
             navigate('/');
         } catch (error) {
             console.error("Error creating ticket", error);

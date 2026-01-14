@@ -25,7 +25,7 @@ export default function TicketList() {
         try {
             setLoading(true);
             const onlyMyTeam = viewMode === 'my_team';
-            const response = await api.get(`/tickets?page=${pageNo}&size=10&search=${searchTerm || ''}&onlyMyTeam=${onlyMyTeam}`);
+            const response = await api.get(`tickets?page=${pageNo}&size=10&search=${searchTerm || ''}&onlyMyTeam=${onlyMyTeam}`);
             setTickets(response.data.content || []);
             setTotalPages(response.data.totalPages);
             setLoading(false);
