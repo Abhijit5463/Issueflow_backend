@@ -22,7 +22,7 @@ export default function CreateTicket() {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const res = await api.get('teams');
+                const res = await api.get('teams/my');
                 setTeams(res.data);
             } catch (err) {
                 console.error("Failed to fetch teams", err);

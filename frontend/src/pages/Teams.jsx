@@ -12,6 +12,7 @@ export default function Teams() {
     const [teamMembers, setTeamMembers] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [inviterLoading, setInviterLoading] = useState({});
 
     useEffect(() => {
         fetchData();
@@ -61,10 +62,12 @@ export default function Teams() {
         if (!email) return;
 
         try {
+            setInviterLoading({ ...inviterLoading, [teamId]: true });
             // Verify if user exists first
             const existsRes = await api.get(`users/exists?email=${email}`);
             if (!existsRes.data) {
                 setError(`User with email ${email} does not exist in IssueFlow.`);
+                setInviterLoading({ ...inviterLoading, [teamId]: false });
                 return;
             }
 
@@ -74,6 +77,8 @@ export default function Teams() {
             setError(''); // Clear error on success
         } catch (err) {
             setError('Failed to send invitation');
+        } finally {
+            setInviterLoading({ ...inviterLoading, [teamId]: false });
         }
     };
 
@@ -201,8 +206,13 @@ export default function Teams() {
                                         value={invitationEmail[team.id] || ''}
                                         onChange={(e) => setInvitationEmail({ ...invitationEmail, [team.id]: e.target.value })}
                                     />
-                                    <button onClick={() => handleInvite(team.id)} className="btn btn-primary" style={{ padding: '8px 12px' }}>
-                                        Invite
+                                    <button
+                                        onClick={() => handleInvite(team.id)}
+                                        className="btn btn-primary"
+                                        style={{ padding: '8px 12px' }}
+                                        disabled={inviterLoading[team.id]}
+                                    >
+                                        {inviterLoading[team.id] ? 'Inviting...' : 'Invite'}
                                     </button>
                                 </div>
                             </div>

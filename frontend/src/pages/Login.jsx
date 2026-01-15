@@ -8,14 +8,18 @@ export default function Login() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError('');
         const res = await login(formData.email, formData.password);
         if (res.success) {
             navigate('/');
         } else {
             setError(res.message);
+            setLoading(false);
         }
     };
 
@@ -72,8 +76,8 @@ export default function Login() {
                         <a href="#" style={{ color: '#818cf8', fontSize: '13px', textDecoration: 'none' }}>Forgot Password?</a>
                     </div>
 
-                    <button type="submit" className="btn btn-primary" style={{ justifyContent: 'center', padding: '12px' }}>
-                        Sign In <LogIn size={18} />
+                    <button type="submit" className="btn btn-primary" disabled={loading} style={{ justifyContent: 'center', padding: '12px' }}>
+                        {loading ? 'Signing In...' : 'Sign In'} <LogIn size={18} />
                     </button>
                 </form>
 

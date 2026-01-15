@@ -10,15 +10,19 @@ export default function Signup() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError('');
         const res = await signup(formData.name, formData.email, formData.password);
         if (res.success) {
             alert('Signup successful! Please login.');
             navigate('/login');
         } else {
             setError(res.message);
+            setLoading(false);
         }
     };
 
@@ -89,8 +93,8 @@ export default function Signup() {
 
 
 
-                    <button type="submit" className="btn btn-primary" style={{ justifyContent: 'center', padding: '12px' }}>
-                        Sign Up <UserPlus size={18} />
+                    <button type="submit" className="btn btn-primary" disabled={loading} style={{ justifyContent: 'center', padding: '12px' }}>
+                        {loading ? 'Creating Account...' : 'Sign Up'} <UserPlus size={18} />
                     </button>
                 </form>
 
