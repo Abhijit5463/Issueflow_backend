@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import { User, Mail, Shield, Ticket, CheckCircle, Save } from 'lucide-react';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function Profile() {
     const { user, api } = useContext(AuthContext);
@@ -47,7 +48,7 @@ export default function Profile() {
         setUpdating(false);
     };
 
-    if (loading) return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
+    if (loading) return <LoadingSpinner />;
 
     return (
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '20px' }} className="animate-fade-in">

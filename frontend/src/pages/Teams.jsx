@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import { Users, UserPlus, Trash2, Check, X, Plus } from 'lucide-react';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function Teams() {
     const { api, user } = useContext(AuthContext);
@@ -95,7 +96,7 @@ export default function Teams() {
         }
     };
 
-    if (loading) return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
+    if (loading) return <LoadingSpinner />;
 
     return (
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>

@@ -3,6 +3,7 @@ import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Save, ArrowLeft } from 'lucide-react';
 import { useEffect } from 'react';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function CreateTicket() {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function CreateTicket() {
         team: null
     });
     const [teams, setTeams] = useState([]);
+    const [fetchingTeams, setFetchingTeams] = useState(true);
 
     useEffect(() => {
         const fetchTeams = async () => {
@@ -24,6 +26,8 @@ export default function CreateTicket() {
                 setTeams(res.data);
             } catch (err) {
                 console.error("Failed to fetch teams", err);
+            } finally {
+                setFetchingTeams(false);
             }
         };
         fetchTeams();
@@ -67,8 +71,8 @@ export default function CreateTicket() {
                     <div className="form-group" style={{ gridColumn: '1 / -1' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <label className="form-label">Short Description <span style={{ color: '#ef4444' }}>*</span></label>
-                            <span style={{ fontSize: '12px', color: formData.title.length > 100 ? '#ef4444' : '#64748b' }}>
-                                {formData.title.length}/100
+                            <span style={{ fontSize: '12px', color: (formData.title.length < 3 || formData.title.length > 100) ? '#ef4444' : '#64748b' }}>
+                                {formData.title.length}/100 (min 3)
                             </span>
                         </div>
                         <input
@@ -118,20 +122,24 @@ export default function CreateTicket() {
 
                     <div className="form-group">
                         <label className="form-label">Assign Team</label>
-                        <select
-                            name="team"
-                            className="form-control"
-                            value={formData.team ? formData.team.id : ''}
-                            onChange={(e) => {
-                                const selectedTeam = teams.find(t => t.id === parseInt(e.target.value));
-                                setFormData({ ...formData, team: selectedTeam || null });
-                            }}
-                        >
-                            <option value="">Public (No Team)</option>
-                            {teams.map(team => (
-                                <option key={team.id} value={team.id}>{team.name}</option>
-                            ))}
-                        </select>
+                        {fetchingTeams ? (
+                            <LoadingSpinner size={24} />
+                        ) : (
+                            <select
+                                name="team"
+                                className="form-control"
+                                value={formData.team ? formData.team.id : ''}
+                                onChange={(e) => {
+                                    const selectedTeam = teams.find(t => t.id === parseInt(e.target.value));
+                                    setFormData({ ...formData, team: selectedTeam || null });
+                                }}
+                            >
+                                <option value="">Public (No Team)</option>
+                                {teams.map(team => (
+                                    <option key={team.id} value={team.id}>{team.name}</option>
+                                ))}
+                            </select>
+                        )}
                     </div>
 
                     <div style={{ gridColumn: '1 / -1', marginTop: '10px', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>

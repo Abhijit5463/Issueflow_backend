@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import { Save, ArrowLeft, CheckCircle, Clock, Paperclip, FileText } from 'lucide-react';
 import { format, differenceInMinutes, differenceInHours } from 'date-fns';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function TicketDetail() {
     const { id } = useParams();
@@ -119,7 +120,7 @@ export default function TicketDetail() {
         return `${hours}h ${mins}m`;
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingSpinner />;
     if (!ticket) return <div>Ticket not found</div>;
 
     return (

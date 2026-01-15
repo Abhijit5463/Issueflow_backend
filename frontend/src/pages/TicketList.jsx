@@ -3,6 +3,7 @@ import AuthContext from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { AlertCircle, CheckCircle, Clock, MoreHorizontal } from 'lucide-react';
 import { format } from 'date-fns';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function TicketList() {
     const { api, searchTerm } = useContext(AuthContext);
@@ -44,7 +45,7 @@ export default function TicketList() {
         }
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingSpinner />;
 
     return (
         <div className="animate-fade-in">
