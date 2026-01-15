@@ -56,10 +56,21 @@ export default function Teams() {
     };
 
     const handleInvite = async (teamId) => {
+        const email = invitationEmail[teamId];
+        if (!email) return;
+
         try {
-            await api.post(`teams/${teamId}/invite`, { email: invitationEmail[teamId] });
+            // Verify if user exists first
+            const existsRes = await api.get(`users/exists?email=${email}`);
+            if (!existsRes.data) {
+                setError(`User with email ${email} does not exist in IssueFlow.`);
+                return;
+            }
+
+            await api.post(`teams/${teamId}/invite`, { email });
             setInvitationEmail({ ...invitationEmail, [teamId]: '' });
             alert('Invitation sent!');
+            setError(''); // Clear error on success
         } catch (err) {
             setError('Failed to send invitation');
         }

@@ -1,8 +1,28 @@
 import { Link } from 'react-router-dom';
-import { Home, PlusCircle, Search, Users, LogOut } from 'lucide-react';
+import { Home, PlusCircle, Search, Users, LogOut, User, LayoutDashboard, Ticket } from 'lucide-react';
 import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import { useLocation } from 'react-router-dom';
+
+const NavLink = ({ to, icon, label }) => {
+    const location = useLocation();
+    const isActive = location.pathname === to;
+    return (
+        <Link to={to} style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            color: isActive ? '#818cf8' : '#e2e8f0',
+            transition: '0.2s',
+            padding: '6px 12px',
+            borderRadius: '6px',
+            background: isActive ? 'rgba(129, 140, 248, 0.1)' : 'transparent',
+            textDecoration: 'none'
+        }}>
+            {icon} {label}
+        </Link>
+    );
+};
 
 export default function Navbar() {
     const { searchTerm, setSearchTerm, logout } = useContext(AuthContext);
@@ -31,12 +51,9 @@ export default function Navbar() {
                     </h1>
                 </Link>
                 <nav style={{ display: 'flex', gap: '20px', fontSize: '14px', fontWeight: '500' }}>
-                    <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#e2e8f0', transition: '0.2s', padding: '6px 12px', borderRadius: '6px', background: location.pathname === '/' ? 'rgba(255,255,255,0.05)' : 'transparent' }}>
-                        <Home size={16} /> Dashboard
-                    </Link>
-                    <Link to="/teams" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#e2e8f0', transition: '0.2s', padding: '6px 12px', borderRadius: '6px', background: location.pathname === '/teams' ? 'rgba(255,255,255,0.05)' : 'transparent' }}>
-                        <Users size={16} /> Teams
-                    </Link>
+                    <NavLink to="/" icon={<LayoutDashboard size={16} />} label="Dashboard" />
+                    <NavLink to="/teams" icon={<Users size={16} />} label="Teams" />
+                    <NavLink to="/profile" icon={<User size={16} />} label="Profile" />
                     <Link to="/create" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#e2e8f0', transition: '0.2s', padding: '6px 12px', borderRadius: '6px', background: location.pathname === '/create' ? 'rgba(255,255,255,0.05)' : 'transparent' }}>
                         <PlusCircle size={16} /> New Ticket
                     </Link>

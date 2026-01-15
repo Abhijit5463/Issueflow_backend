@@ -6,6 +6,7 @@ import TicketList from './pages/TicketList';
 import TicketDetail from './pages/TicketDetail';
 import CreateTicket from './pages/CreateTicket';
 import Teams from './pages/Teams';
+import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/create" element={<CreateTicket />} />
             <Route path="/ticket/:id" element={<TicketDetail />} />
             <Route path="/teams" element={<Teams />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
       </Router>

@@ -27,4 +27,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
                         @Param("onlyMyTeam") Boolean onlyMyTeam,
                         org.springframework.data.domain.Pageable pageable);
 
+        long countByReporter(String reporter);
+
+        long countByAssigneeAndStatus(String assignee, com.example.issueflow.model.Status status);
+
 }

@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 
 export default function CreateTicket() {
     const navigate = useNavigate();
-    const { api } = useContext(AuthContext);
+    const { api, user } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
         priority: 'LOW',
         status: 'OPEN',
-        reporter: '',
+        reporter: user?.name || '',
         team: null
     });
     const [teams, setTeams] = useState([]);
@@ -65,13 +65,41 @@ export default function CreateTicket() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
 
                     <div className="form-group" style={{ gridColumn: '1 / -1' }}>
-                        <label className="form-label">Short Description <span style={{ color: '#ef4444' }}>*</span></label>
-                        <input type="text" name="title" className="form-control" value={formData.title} onChange={handleChange} required placeholder="Brief summary of the issue" />
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <label className="form-label">Short Description <span style={{ color: '#ef4444' }}>*</span></label>
+                            <span style={{ fontSize: '12px', color: formData.title.length > 100 ? '#ef4444' : '#64748b' }}>
+                                {formData.title.length}/100
+                            </span>
+                        </div>
+                        <input
+                            type="text"
+                            name="title"
+                            className="form-control"
+                            value={formData.title}
+                            onChange={handleChange}
+                            required
+                            placeholder="Brief summary of the issue"
+                            maxLength={100}
+                        />
                     </div>
 
                     <div className="form-group" style={{ gridColumn: '1 / -1' }}>
-                        <label className="form-label">Description <span style={{ color: '#ef4444' }}>*</span></label>
-                        <textarea name="description" className="form-control" rows="6" value={formData.description} onChange={handleChange} required placeholder="Detailed explanation of the incident..." style={{ lineHeight: '1.6' }} />
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <label className="form-label">Description <span style={{ color: '#ef4444' }}>*</span></label>
+                            <span style={{ fontSize: '12px', color: '#64748b' }}>
+                                {formData.description.length} characters
+                            </span>
+                        </div>
+                        <textarea
+                            name="description"
+                            className="form-control"
+                            rows="6"
+                            value={formData.description}
+                            onChange={handleChange}
+                            required
+                            placeholder="Detailed explanation of the incident..."
+                            style={{ lineHeight: '1.6' }}
+                        />
                     </div>
 
                     <div className="form-group">
