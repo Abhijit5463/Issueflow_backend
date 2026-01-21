@@ -104,35 +104,36 @@ export default function Teams() {
     if (loading) return <LoadingSpinner />;
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-            <h1 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '30px' }}>
-                <span style={{ color: '#818cf8' }}>Team</span> <span style={{ color: '#e2e8f0' }}>Management</span>
+    return (
+        <div style={{ maxWidth: '900px', margin: '0 auto', padding: '30px 20px' }} className="animate-fade-in">
+            <h1 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '32px', color: 'var(--text-main)' }}>
+                <span style={{ color: 'var(--primary)' }}>Team</span> Management
             </h1>
 
             {error && (
-                <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '15px', borderRadius: '8px', marginBottom: '20px' }}>
+                <div style={{ background: 'var(--danger-bg)', color: 'var(--danger-text)', padding: '16px', borderRadius: '8px', marginBottom: '24px', border: '1px solid var(--danger)' }}>
                     {error}
                 </div>
             )}
 
             {/* Pending Invitations Section */}
             {invitations.length > 0 && (
-                <div className="card" style={{ marginBottom: '30px', border: '1px solid #818cf8' }}>
-                    <h2 style={{ fontSize: '18px', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
-                        <UserPlus size={20} color="#818cf8" /> Pending Invitations
+                <div className="card" style={{ marginBottom: '32px', border: '1px solid var(--primary)', background: 'var(--primary-light)' }}>
+                    <h2 style={{ fontSize: '18px', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', color: 'var(--primary)' }}>
+                        <UserPlus size={20} color="var(--primary)" /> Pending Invitations
                     </h2>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         {invitations.map(inv => (
-                            <div key={inv.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', background: '#1e293b', borderRadius: '8px' }}>
+                            <div key={inv.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', background: 'var(--bg-surface)', borderRadius: '8px', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
                                 <div>
-                                    <span style={{ fontWeight: '600' }}>{inv.team.name}</span>
-                                    <p style={{ fontSize: '12px', color: '#94a3b8', margin: 0 }}>Invited by: {inv.inviter.name}</p>
+                                    <span style={{ fontWeight: '600', color: 'var(--text-main)' }}>{inv.team.name}</span>
+                                    <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>Invited by: {inv.inviter.name}</p>
                                 </div>
-                                <div style={{ display: 'flex', gap: '10px' }}>
-                                    <button onClick={() => handleRespondInvitation(inv.id, 'ACCEPTED')} className="btn" style={{ background: '#22c55e', padding: '8px 12px' }} title="Accept">
+                                <div style={{ display: 'flex', gap: '8px' }}>
+                                    <button onClick={() => handleRespondInvitation(inv.id, 'ACCEPTED')} className="btn" style={{ background: 'var(--success)', color: 'white', padding: '8px 12px' }} title="Accept">
                                         <Check size={18} />
                                     </button>
-                                    <button onClick={() => handleRespondInvitation(inv.id, 'DECLINED')} className="btn" style={{ background: '#ef4444', padding: '8px 12px' }} title="Decline">
+                                    <button onClick={() => handleRespondInvitation(inv.id, 'DECLINED')} className="btn" style={{ background: 'var(--danger)', color: 'white', padding: '8px 12px' }} title="Decline">
                                         <X size={18} />
                                     </button>
                                 </div>
@@ -143,11 +144,11 @@ export default function Teams() {
             )}
 
             {/* Create Team Section */}
-            <div className="card" style={{ marginBottom: '30px' }}>
-                <h2 style={{ fontSize: '18px', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
-                    <Plus size={20} color="#818cf8" /> Create New Team
+            <div className="card" style={{ marginBottom: '32px' }}>
+                <h2 style={{ fontSize: '18px', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', color: 'var(--text-main)' }}>
+                    <Plus size={20} color="var(--primary)" /> Create New Team
                 </h2>
-                <form onSubmit={handleCreateTeam} style={{ display: 'flex', gap: '10px' }}>
+                <form onSubmit={handleCreateTeam} style={{ display: 'flex', gap: '12px' }}>
                     <input
                         type="text"
                         className="form-control"
@@ -163,29 +164,29 @@ export default function Teams() {
             </div>
 
             {/* My Teams Section */}
-            <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '20px' }}>My Teams</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '20px' }}>
+            <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px', color: 'var(--text-main)' }}>My Teams</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '24px' }}>
                 {myTeams.map(team => (
-                    <div key={team.id} className="card">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '15px' }}>
+                    <div key={team.id} className="card" style={{ height: '100%' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
                             <div>
-                                <h3 style={{ fontSize: '18px', fontWeight: '700', margin: 0 }}>{team.name}</h3>
-                                <p style={{ fontSize: '12px', color: '#818cf8' }}>
+                                <h3 style={{ fontSize: '18px', fontWeight: '700', margin: 0, color: 'var(--text-main)' }}>{team.name}</h3>
+                                <p style={{ fontSize: '13px', color: 'var(--primary)', fontWeight: '500', marginTop: '4px' }}>
                                     {team.adminUser.id === user.id ? 'Admin' : 'Member'}
                                 </p>
                             </div>
-                            <Users color="#94a3b8" />
+                            <Users color="var(--text-muted)" />
                         </div>
 
                         {/* Members List */}
-                        <div style={{ marginBottom: '15px' }}>
-                            <p style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Members</p>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                        <div style={{ marginBottom: '20px' }}>
+                            <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: '600' }}>Members</p>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 {(teamMembers[team.id] || []).map(member => (
-                                    <div key={member.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px', padding: '4px 0' }}>
-                                        <span>{member.name} {member.id === team.adminUser.id && <span style={{ color: '#818cf8', fontSize: '10px' }}>(Admin)</span>}</span>
+                                    <div key={member.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px', padding: '6px 0', borderBottom: '1px solid var(--border-subtle)' }}>
+                                        <span style={{ color: 'var(--text-secondary)' }}>{member.name} {member.id === team.adminUser.id && <span style={{ color: 'var(--primary)', fontSize: '11px', background: 'var(--primary-light)', padding: '2px 6px', borderRadius: '4px', marginLeft: '4px' }}>ADMIN</span>}</span>
                                         {team.adminUser.id === user.id && member.id !== user.id && (
-                                            <button onClick={() => handleRemoveMember(team.id, member.id)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', padding: '2px' }} title="Remove member">
+                                            <button onClick={() => handleRemoveMember(team.id, member.id)} style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '4px' }} title="Remove member">
                                                 <Trash2 size={14} />
                                             </button>
                                         )}
@@ -196,8 +197,8 @@ export default function Teams() {
 
                         {/* Invite Member - Admin only */}
                         {team.adminUser?.id === user.id && (
-                            <div style={{ borderTop: '1px solid #334155', paddingTop: '15px', marginTop: '10px' }}>
-                                <div style={{ display: 'flex', gap: '8px' }}>
+                            <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '16px', marginTop: 'auto' }}>
+                                <div style={{ display: 'flex', gap: '10px' }}>
                                     <input
                                         type="email"
                                         className="form-control"
@@ -209,7 +210,7 @@ export default function Teams() {
                                     <button
                                         onClick={() => handleInvite(team.id)}
                                         className="btn btn-primary"
-                                        style={{ padding: '8px 12px' }}
+                                        style={{ padding: '8px 16px' }}
                                         disabled={inviterLoading[team.id]}
                                     >
                                         {inviterLoading[team.id] ? 'Inviting...' : 'Invite'}
@@ -222,8 +223,10 @@ export default function Teams() {
             </div>
 
             {myTeams.length === 0 && (
-                <div style={{ textAlign: 'center', color: '#94a3b8', marginTop: '40px' }}>
-                    You are not part of any teams yet. Create one or wait for an invitation!
+                <div style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: '48px', padding: '40px', background: 'var(--bg-subtle)', borderRadius: '12px' }}>
+                    <Users size={48} color="var(--border-default)" style={{ marginBottom: '16px' }} />
+                    <p style={{ fontSize: '16px', fontWeight: '500' }}>You are not part of any teams yet.</p>
+                    <p style={{ fontSize: '14px' }}>Create one above or wait for an invitation!</p>
                 </div>
             )}
         </div>

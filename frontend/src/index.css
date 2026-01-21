@@ -1,35 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --secondary: #64748b;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --dark: #0f172a;
-  --light: #f8fafc;
-  --glass-bg: rgba(255, 255, 255, 0.95);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --radius: 12px;
+  /* Brand Colors - Standard "Industrial" Blue/Indigo */
+  --primary: #4F46E5;
+  /* Indigo 600 */
+  --primary-hover: #4338CA;
+  /* Indigo 700 */
+  --primary-light: #E0E7FF;
+  /* Indigo 100 */
+
+  /* Semantic Colors */
+  --success: #10B981;
+  /* Emerald 500 */
+  --success-bg: #ECFDF5;
+  --success-text: #065F46;
+
+  --warning: #F59E0B;
+  /* Amber 500 */
+  --warning-bg: #FFFBEB;
+  --warning-text: #92400E;
+
+  --danger: #EF4444;
+  /* Red 500 */
+  --danger-bg: #FEF2F2;
+  --danger-text: #991B1B;
+
+  /* Neutral Scale (Slate) */
+  --bg-app: #F8FAFC;
+  /* Slate 50 - Main background */
+  --bg-surface: #FFFFFF;
+  /* White - Cards/Modals */
+  --bg-subtle: #F1F5F9;
+  /* Slate 100 - Secondary backgrounds */
+
+  --border-subtle: #E2E8F0;
+  /* Slate 200 */
+  --border-default: #CBD5E1;
+  /* Slate 300 */
+
+  --text-main: #0F172A;
+  /* Slate 900 */
+  --text-secondary: #475569;
+  /* Slate 600 */
+  --text-muted: #64748B;
+  /* Slate 500 */
+
+  /* Layout & Effects */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #0f172a;
-  background-image:
-    radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
-    radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
-  background-attachment: fixed;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-app);
   color: var(--text-main);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  line-height: 1.5;
 }
 
 * {
@@ -38,8 +74,13 @@ body {
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: var(--primary);
+  font-weight: 500;
   transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary-hover);
 }
 
 /* Layout Utilities */
@@ -52,181 +93,237 @@ a {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 30px 20px 60px 20px;
+  padding: 40px 24px;
   width: 100%;
   flex: 1;
 }
 
-/* Card Component */
+/* Card Component - Professional Clean Look */
 .card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
-  box-shadow: var(--glass-shadow);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   padding: 24px;
   margin-bottom: 24px;
   transition: var(--transition);
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-default);
 }
 
-/* Buttons */
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-main);
+  margin-top: 0;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  /* Tighter tracking for modern headings */
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* Buttons - SaaS Style */
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
   transition: var(--transition);
-  display: inline-flex;
-  align-items: center;
   gap: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  background-color: var(--primary);
   color: white;
+  box-shadow: 0 1px 2px 0 rgba(79, 70, 229, 0.4);
+  /* Colored shadow hint */
 }
 
 .btn-primary:hover {
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  background-color: var(--primary-hover);
   transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
 }
 
 .btn-secondary {
-  background: white;
+  background-color: var(--bg-surface);
   color: var(--text-main);
-  border: 1px solid #e2e8f0;
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-secondary:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background-color: var(--bg-subtle);
+  border-color: var(--border-default);
+  color: var(--text-main);
+  /* Ensure contrast */
 }
 
 /* Form Styles */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .form-label {
   display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
   margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .form-control {
   width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
+  padding: 10px 14px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
   font-size: 14px;
+  /* 16px to prevent zoom on mobile, but 14px looks crisper on desktop. sticking to 14px for "pro" look */
   font-family: inherit;
+  color: var(--text-main);
   transition: var(--transition);
-  background: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-control::placeholder {
+  color: var(--border-default);
 }
 
 .form-control:focus {
   outline: none;
   border-color: var(--primary);
-  background: white;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 .form-control:disabled {
-  background: #f1f5f9;
+  background-color: var(--bg-subtle);
+  color: var(--text-muted);
   cursor: not-allowed;
-  opacity: 0.7;
+  border-color: var(--border-subtle);
 }
 
 textarea.form-control {
   resize: vertical;
-  min-height: 100px;
+  min-height: 120px;
 }
 
-/* Data Table */
+/* Data Table - Clean Lines */
 .table-container {
+  width: 100%;
   overflow-x: auto;
-  border-radius: var(--radius);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  background: var(--bg-surface);
 }
 
 .data-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
+  border-collapse: collapse;
+  /* Cleaner than separate */
   font-size: 14px;
 }
 
 .data-table th {
   text-align: left;
-  padding: 16px 20px;
-  background: #f8fafc;
-  color: var(--text-muted);
+  padding: 14px 24px;
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  border-bottom: 2px solid #e2e8f0;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .data-table td {
-  padding: 16px 20px;
-  border-bottom: 1px solid #f1f5f9;
-  color: var(--text-main);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  vertical-align: middle;
 }
 
 .data-table tr:last-child td {
   border-bottom: none;
 }
 
-.data-table tr {
-  transition: var(--transition);
+.data-table tr:hover td {
+  background-color: #F8FAFC;
+  /* Subtle hover state */
 }
 
-.data-table tr:hover {
-  background-color: rgba(99, 102, 241, 0.03);
-}
-
-/* Badges */
+/* Badges - Refined Colors */
 .status-badge {
-  padding: 6px 12px;
-  border-radius: 20px;
+  padding: 4px 10px;
+  border-radius: 9999px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.status-badge::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
 }
 
 .status-open {
-  background: #e0e7ff;
-  color: #4338ca;
+  background-color: var(--primary-light);
+  color: var(--primary);
 }
 
 .status-in-progress {
-  background: #ffedd5;
-  color: #c2410c;
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+  /* Override dot color if needed, but currentcolor works well */
 }
 
 .status-closed {
-  background: #dcfce7;
-  color: #15803d;
+  background-color: var(--success-bg);
+  color: var(--success-text);
 }
 
-/* Custom Scrollbar */
+/* Scrollbar - Clean & Subtle */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -237,19 +334,22 @@ textarea.form-control {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #CBD5E1;
   border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  /* Makes the thumb look smaller/floating */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background-color: #94A3B8;
 }
 
-/* Animation */
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(4px);
   }
 
   to {
@@ -259,21 +359,23 @@ textarea.form-control {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+  animation: fadeIn 0.3s ease-out forwards;
 }
 
-/* Spinner */
+/* Spinner - Clean Ring */
 .spinner {
-  border: 4px solid rgba(255, 255, 255, 0.1);
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--border-subtle);
   border-radius: 50%;
   border-top-color: var(--primary);
-  animation: spin 1s ease-in-out infinite;
-  -webkit-animation: spin 1s ease-in-out infinite;
+  animation: spin 0.8s linear infinite;
+  -webkit-animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
   to {
-    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 

@@ -51,18 +51,18 @@ export default function CreateTicket() {
 
     return (
         <div className="animate-fade-in">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <button onClick={() => navigate('/')} className="btn btn-secondary" style={{ padding: '8px 12px' }}>
                         <ArrowLeft size={16} /> Back
                     </button>
-                    <h2 style={{ fontSize: '24px', fontWeight: '700', margin: 0 }}>Create New Incident</h2>
+                    <h2 style={{ fontSize: '24px', fontWeight: '700', margin: 0, color: 'var(--text-main)' }}>Create New Incident</h2>
                 </div>
             </div>
 
             <div className="card" style={{ maxWidth: '800px', margin: '0 auto' }}>
-                <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginTop: 0, marginBottom: '25px', color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '4px', height: '16px', background: '#6366f1', borderRadius: '2px' }}></div>
+                <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '15px', marginTop: 0, marginBottom: '25px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ width: '4px', height: '16px', background: 'var(--primary)', borderRadius: '2px' }}></div>
                     Ticket Information
                 </h3>
 
@@ -70,8 +70,8 @@ export default function CreateTicket() {
 
                     <div className="form-group" style={{ gridColumn: '1 / -1' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <label className="form-label">Short Description <span style={{ color: '#ef4444' }}>*</span></label>
-                            <span style={{ fontSize: '12px', color: (formData.title.length < 3 || formData.title.length > 100) ? '#ef4444' : '#64748b' }}>
+                            <label className="form-label">Short Description <span style={{ color: 'var(--danger)' }}>*</span></label>
+                            <span style={{ fontSize: '12px', color: (formData.title.length < 3 || formData.title.length > 100) ? 'var(--danger)' : 'var(--text-muted)' }}>
                                 {formData.title.length}/100 (min 3)
                             </span>
                         </div>
@@ -89,8 +89,8 @@ export default function CreateTicket() {
 
                     <div className="form-group" style={{ gridColumn: '1 / -1' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <label className="form-label">Description <span style={{ color: '#ef4444' }}>*</span></label>
-                            <span style={{ fontSize: '12px', color: '#64748b' }}>
+                            <label className="form-label">Description <span style={{ color: 'var(--danger)' }}>*</span></label>
+                            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                                 {formData.description.length} characters
                             </span>
                         </div>
@@ -107,7 +107,7 @@ export default function CreateTicket() {
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">Reporter <span style={{ color: '#ef4444' }}>*</span></label>
+                        <label className="form-label">Reporter <span style={{ color: 'var(--danger)' }}>*</span></label>
                         <input type="text" name="reporter" className="form-control" value={formData.reporter} onChange={handleChange} placeholder="Enter your name" />
                     </div>
 
@@ -142,9 +142,9 @@ export default function CreateTicket() {
                         )}
                     </div>
 
-                    <div style={{ gridColumn: '1 / -1', marginTop: '10px', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+                    <div style={{ gridColumn: '1 / -1', marginTop: '16px', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
                         <button onClick={() => navigate('/')} className="btn btn-secondary" style={{ width: '100px' }}>Cancel</button>
-                        <button onClick={handleSubmit} className="btn btn-primary" style={{ width: '140px', justifyContent: 'center' }}>
+                        <button onClick={handleSubmit} className="btn btn-primary" style={{ width: '160px', justifyContent: 'center' }}>
                             <Save size={16} /> Submit Ticket
                         </button>
                     </div>

@@ -125,27 +125,34 @@ export default function TicketDetail() {
 
     return (
         <div className="animate-fade-in">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <button onClick={() => navigate('/')} className="btn btn-secondary" style={{ padding: '8px 12px' }}>
                         <ArrowLeft size={16} /> Back
                     </button>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <span style={{ fontSize: '13px', fontWeight: 'bold', color: '#818cf8', background: 'rgba(99, 102, 241, 0.1)', padding: '2px 8px', borderRadius: '6px' }}>
+                            <span style={{
+                                fontSize: '13px',
+                                fontWeight: 'bold',
+                                color: 'var(--primary)',
+                                background: 'var(--primary-light)',
+                                padding: '2px 8px',
+                                borderRadius: '6px'
+                            }}>
                                 INC{String(ticket.id).padStart(7, '0')}
                             </span>
                             <span className={`status-badge status-${ticket.status.toLowerCase().replace('_', '-')}`}>
                                 {ticket.status.replaceAll('_', ' ').toLowerCase()}
                             </span>
                         </div>
-                        <h2 style={{ fontSize: '24px', fontWeight: '700', margin: '5px 0 0 0', color: '#f8fafc' }}>{formData.title}</h2>
+                        <h2 style={{ fontSize: '24px', fontWeight: '700', margin: '8px 0 0 0', color: 'var(--text-main)' }}>{formData.title}</h2>
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '10px' }}>
                     {ticket.status === 'CLOSED' ? (
                         <>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#10b981', fontSize: '14px', fontWeight: '600', background: 'rgba(16, 185, 129, 0.1)', padding: '8px 12px', borderRadius: '8px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--success-text)', fontSize: '14px', fontWeight: '600', background: 'var(--success-bg)', padding: '8px 12px', borderRadius: '8px' }}>
                                 <CheckCircle size={16} /> Closed {calculateDuration() && `in ${calculateDuration()}`}
                             </div>
                             <button onClick={async () => {
@@ -175,15 +182,15 @@ export default function TicketDetail() {
                 </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '30px', alignItems: 'start' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '32px', alignItems: 'start' }}>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
 
                     {/* Attachments Section */}
                     {ticket.attachments && ticket.attachments.length > 0 && (
                         <div className="card">
-                            <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginTop: 0, marginBottom: '20px', color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <Paperclip size={16} color="#6366f1" />
+                            <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '15px', marginTop: 0, marginBottom: '20px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <Paperclip size={16} color="var(--primary)" />
                                 Attachments
                             </h3>
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
@@ -198,15 +205,15 @@ export default function TicketDetail() {
                                             alignItems: 'center',
                                             gap: '8px',
                                             padding: '8px 12px',
-                                            background: '#f1f5f9',
+                                            background: 'var(--bg-subtle)',
                                             borderRadius: '6px',
                                             textDecoration: 'none',
-                                            color: '#334155',
+                                            color: 'var(--text-main)',
                                             fontSize: '13px',
-                                            border: '1px solid #e2e8f0'
+                                            border: '1px solid var(--border-subtle)'
                                         }}
                                     >
-                                        <FileText size={14} color="#64748b" />
+                                        <FileText size={14} color="var(--text-muted)" />
                                         {file.substring(file.indexOf('_') + 1)}
                                     </a>
                                 ))}
@@ -214,8 +221,8 @@ export default function TicketDetail() {
                         </div>
                     )}
                     <div className="card">
-                        <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginTop: 0, marginBottom: '20px', color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <div style={{ width: '4px', height: '16px', background: '#6366f1', borderRadius: '2px' }}></div>
+                        <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '15px', marginTop: 0, marginBottom: '20px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <div style={{ width: '4px', height: '16px', background: 'var(--primary)', borderRadius: '2px' }}></div>
                             Incident Details
                         </h3>
 
@@ -230,11 +237,11 @@ export default function TicketDetail() {
                         </div>
                     </div>
 
-                    <div className="card" style={{ borderTop: '4px solid #10b981' }}>
-                        <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginTop: 0, marginBottom: '20px', color: '#475569' }}>
+                    <div className="card" style={{ borderTop: '4px solid var(--success)' }}>
+                        <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '15px', marginTop: 0, marginBottom: '20px', color: 'var(--text-secondary)' }}>
                             Resolution Information
                         </h3>
-                        <form style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <form style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                             <div className="form-group" style={{ marginBottom: 0 }}>
                                 <label className="form-label">Resolution Notes</label>
                                 <textarea
@@ -248,7 +255,7 @@ export default function TicketDetail() {
                                 />
                             </div>
 
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                                 <div className="form-group" style={{ marginBottom: 0 }}>
                                     <label className="form-label">Time Worked</label>
                                     <input
@@ -299,17 +306,17 @@ export default function TicketDetail() {
                                     checked={formData.recurringIssue}
                                     onChange={handleChange}
                                     disabled={ticket.status === 'CLOSED'}
-                                    style={{ width: '16px', height: '16px' }}
+                                    style={{ width: '16px', height: '16px', accentColor: 'var(--primary)' }}
                                 />
-                                <label htmlFor="recurringIssue" style={{ fontSize: '13px', color: '#334155', fontWeight: '500' }}>Recurring Issue?</label>
+                                <label htmlFor="recurringIssue" style={{ fontSize: '13px', color: 'var(--text-main)', fontWeight: '500' }}>Recurring Issue?</label>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     <div className="card">
-                        <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginTop: 0, marginBottom: '20px', color: '#475569' }}>
+                        <h3 style={{ fontSize: '16px', fontWeight: '600', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '15px', marginTop: 0, marginBottom: '20px', color: 'var(--text-secondary)' }}>
                             Properties
                         </h3>
 
@@ -346,20 +353,20 @@ export default function TicketDetail() {
                             <input type="text" name="reporter" className="form-control" value={formData.reporter} onChange={handleChange} disabled={ticket.status === 'CLOSED'} />
                         </div>
 
-                        <div style={{ paddingTop: '15px', borderTop: '1px solid #f1f5f9', marginTop: '15px' }}>
-                            <div className="form-group" style={{ marginBottom: '10px' }}>
-                                <label className="form-label" style={{ fontSize: '11px', marginBottom: '2px' }}>Created</label>
-                                <div style={{ fontSize: '13px', color: '#334155', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                    <Clock size={12} color="#94a3b8" />
+                        <div style={{ paddingTop: '15px', borderTop: '1px solid var(--border-subtle)', marginTop: '15px' }}>
+                            <div className="form-group" style={{ marginBottom: '12px' }}>
+                                <label className="form-label" style={{ fontSize: '12px', marginBottom: '2px', color: 'var(--text-muted)' }}>Created</label>
+                                <div style={{ fontSize: '13px', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                    <Clock size={14} color="var(--text-muted)" />
                                     {format(new Date(ticket.createdAt), 'MMM d, yyyy HH:mm')}
                                 </div>
                             </div>
 
                             {ticket.closedAt && (
                                 <div className="form-group" style={{ marginBottom: 0 }}>
-                                    <label className="form-label" style={{ fontSize: '11px', marginBottom: '2px' }}>Closed</label>
-                                    <div style={{ fontSize: '13px', color: '#334155', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                        <CheckCircle size={12} color="#10b981" />
+                                    <label className="form-label" style={{ fontSize: '12px', marginBottom: '2px', color: 'var(--text-muted)' }}>Closed</label>
+                                    <div style={{ fontSize: '13px', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                        <CheckCircle size={14} color="var(--success)" />
                                         {format(new Date(ticket.closedAt), 'MMM d, yyyy HH:mm')}
                                     </div>
                                 </div>

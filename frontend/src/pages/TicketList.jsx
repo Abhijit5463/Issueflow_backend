@@ -38,10 +38,10 @@ export default function TicketList() {
 
     const getPriorityColor = (p) => {
         switch (p) {
-            case 'HIGH': return '#ff4d4d';
-            case 'MEDIUM': return '#ffa500';
-            case 'LOW': return '#21aeb3';
-            default: return '#999';
+            case 'HIGH': return '#ef4444'; // Red-500
+            case 'MEDIUM': return '#f59e0b'; // Amber-500
+            case 'LOW': return '#10b981'; // Emerald-500 (changed from teal for consistency)
+            default: return '#94a3b8';
         }
     };
 
@@ -49,29 +49,28 @@ export default function TicketList() {
 
     return (
         <div className="animate-fade-in">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                 <div>
-                    <h2 style={{ fontSize: '28px', fontWeight: '800', margin: '0 0 5px 0', background: 'linear-gradient(to right, #fff, #94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Dashboard</h2>
-                    <p style={{ margin: 0, color: '#94a3b8' }}>Manage and track your incident tickets</p>
+                    <h2 style={{ fontSize: '28px', marginBottom: '4px' }}>Dashboard</h2>
+                    <p>Manage and track your incident tickets</p>
                 </div>
                 <Link to="/create" className="btn btn-primary">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ fontSize: '18px' }}>+</span> Create Ticket
-                    </div>
+                    <span style={{ fontSize: '18px', fontWeight: 'bold' }}>+</span> Create Ticket
                 </Link>
             </div>
 
-            <div style={{ marginBottom: '20px', borderBottom: '1px solid #e2e8f0', display: 'flex', gap: '20px' }}>
+            <div style={{ marginBottom: '24px', borderBottom: '1px solid var(--border-subtle)', display: 'flex', gap: '24px' }}>
                 <button
                     onClick={() => setViewMode('all')}
                     style={{
-                        padding: '10px 0',
+                        padding: '12px 0',
                         background: 'none',
                         border: 'none',
-                        borderBottom: viewMode === 'all' ? '2px solid #6366f1' : '2px solid transparent',
-                        color: viewMode === 'all' ? '#6366f1' : '#64748b',
+                        borderBottom: viewMode === 'all' ? '2px solid var(--primary)' : '2px solid transparent',
+                        color: viewMode === 'all' ? 'var(--primary)' : 'var(--text-muted)',
                         fontWeight: '600',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
                     }}
                 >
                     All Tickets
@@ -79,13 +78,14 @@ export default function TicketList() {
                 <button
                     onClick={() => setViewMode('my_team')}
                     style={{
-                        padding: '10px 0',
+                        padding: '12px 0',
                         background: 'none',
                         border: 'none',
-                        borderBottom: viewMode === 'my_team' ? '2px solid #6366f1' : '2px solid transparent',
-                        color: viewMode === 'my_team' ? '#6366f1' : '#64748b',
+                        borderBottom: viewMode === 'my_team' ? '2px solid var(--primary)' : '2px solid transparent',
+                        color: viewMode === 'my_team' ? 'var(--primary)' : 'var(--text-muted)',
                         fontWeight: '600',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
                     }}
                 >
                     My Team
@@ -93,11 +93,11 @@ export default function TicketList() {
             </div>
 
             <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-                <div className="table-container">
+                <div className="table-container" style={{ border: 'none', boxShadow: 'none', borderRadius: 0 }}>
                     <table className="data-table">
                         <thead>
                             <tr>
-                                <th style={{ width: '80px', paddingLeft: '24px' }}>Ticket ID</th>
+                                <th style={{ paddingLeft: '24px' }}>Ticket ID</th>
                                 <th>Description</th>
                                 <th style={{ width: '140px' }}>Priority</th>
                                 <th style={{ width: '140px' }}>State</th>
@@ -109,14 +109,16 @@ export default function TicketList() {
                             {tickets.map(ticket => (
                                 <tr key={ticket.id}>
                                     <td style={{ paddingLeft: '24px' }}>
-                                        <Link to={`/ticket/${ticket.id}`} style={{ color: '#818cf8', fontWeight: '700', fontFamily: 'monospace', letterSpacing: '0.5px' }}>
+                                        <Link to={`/ticket/${ticket.id}`} style={{ fontWeight: '600', fontFamily: 'monospace' }}>
                                             INC{String(ticket.id).padStart(7, '0')}
                                         </Link>
                                     </td>
                                     <td>
-                                        <Link to={`/ticket/${ticket.id}`} style={{ display: 'block', textDecoration: 'none' }}>
-                                            <div style={{ fontWeight: '600', color: '#1e293b', marginBottom: '4px' }}>{ticket.title}</div>
-                                            <div style={{ fontSize: '12px', color: '#64748b' }}>{ticket.description?.substring(0, 60)}{ticket.description?.length > 60 ? '...' : ''}</div>
+                                        <Link to={`/ticket/${ticket.id}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
+                                            <div style={{ fontWeight: '600', color: 'var(--text-main)', marginBottom: '4px' }}>{ticket.title}</div>
+                                            <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+                                                {ticket.description?.substring(0, 60)}{ticket.description?.length > 60 ? '...' : ''}
+                                            </div>
                                         </Link>
                                     </td>
                                     <td>
@@ -125,10 +127,11 @@ export default function TicketList() {
                                                 width: '8px',
                                                 height: '8px',
                                                 borderRadius: '50%',
-                                                backgroundColor: getPriorityColor(ticket.priority),
-                                                boxShadow: `0 0 0 2px ${getPriorityColor(ticket.priority)}20`
+                                                backgroundColor: getPriorityColor(ticket.priority)
                                             }}></div>
-                                            <span style={{ fontWeight: '500', fontSize: '13px', color: '#475569' }}>{ticket.priority?.charAt(0) + ticket.priority?.slice(1).toLowerCase()}</span>
+                                            <span style={{ fontWeight: '500', fontSize: '13px', color: 'var(--text-secondary)' }}>
+                                                {ticket.priority?.charAt(0) + ticket.priority?.slice(1).toLowerCase()}
+                                            </span>
                                         </div>
                                     </td>
                                     <td>
@@ -139,25 +142,36 @@ export default function TicketList() {
                                     <td>
                                         {ticket.assignee ? (
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#e2e8f0', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 'bold' }}>
+                                                <div style={{
+                                                    width: '24px',
+                                                    height: '24px',
+                                                    borderRadius: '50%',
+                                                    background: 'var(--primary-light)',
+                                                    color: 'var(--primary)',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    fontSize: '11px',
+                                                    fontWeight: '700'
+                                                }}>
                                                     {ticket.assignee.charAt(0).toUpperCase()}
                                                 </div>
-                                                <span style={{ color: '#334155', fontSize: '13px', fontWeight: '500' }}>{ticket.assignee}</span>
+                                                <span style={{ color: 'var(--text-main)', fontSize: '13px', fontWeight: '500' }}>{ticket.assignee}</span>
                                             </div>
                                         ) : (
-                                            <span style={{ color: '#94a3b8', fontSize: '12px' }}>Unassigned</span>
+                                            <span style={{ color: 'var(--text-muted)', fontSize: '13px' }}>Unassigned</span>
                                         )}
                                     </td>
-                                    <td style={{ color: '#64748b', fontSize: '13px' }}>
+                                    <td style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
                                         {ticket.createdAt ? format(new Date(ticket.createdAt), 'MMM d, yyyy • HH:mm') : '-'}
                                     </td>
                                 </tr>
                             ))}
                             {tickets.length === 0 && (
                                 <tr>
-                                    <td colSpan="6" style={{ textAlign: 'center', padding: '60px', color: '#94a3b8' }}>
-                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-                                            <AlertCircle size={32} color="#cbd5e1" />
+                                    <td colSpan="6" style={{ textAlign: 'center', padding: '60px', color: 'var(--text-muted)' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                                            <AlertCircle size={32} color="var(--border-default)" />
                                             <p style={{ margin: 0, fontWeight: '500' }}>No tickets found</p>
                                         </div>
                                     </td>
@@ -168,7 +182,7 @@ export default function TicketList() {
                 </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', marginTop: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', marginTop: '24px' }}>
                 <button
                     disabled={page === 0}
                     onClick={() => setPage(p => p - 1)}
@@ -177,7 +191,7 @@ export default function TicketList() {
                 >
                     Previous
                 </button>
-                <span style={{ color: '#94a3b8', fontSize: '14px' }}>
+                <span style={{ color: 'var(--text-muted)', fontSize: '14px', fontVariantNumeric: 'tabular-nums' }}>
                     Page {page + 1} of {totalPages === 0 ? 1 : totalPages}
                 </span>
                 <button
