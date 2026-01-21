@@ -104,7 +104,7 @@ export default function Teams() {
     if (loading) return <LoadingSpinner />;
 
     return (
-    return (
+
         <div style={{ maxWidth: '900px', margin: '0 auto', padding: '30px 20px' }} className="animate-fade-in">
             <h1 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '32px', color: 'var(--text-main)' }}>
                 <span style={{ color: 'var(--primary)' }}>Team</span> Management
