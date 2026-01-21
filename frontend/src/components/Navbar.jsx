@@ -30,8 +30,8 @@ export default function Navbar() {
 
     return (
         <header style={{
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(15, 23, 42, 0.95)',
+            backdropFilter: 'blur(12px)',
             borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             color: 'white',
             padding: '0 30px',
@@ -42,7 +42,7 @@ export default function Navbar() {
             position: 'sticky',
             top: 0,
             zIndex: 1000,
-            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)'
         }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
                 <Link to="/" style={{ textDecoration: 'none' }}>
